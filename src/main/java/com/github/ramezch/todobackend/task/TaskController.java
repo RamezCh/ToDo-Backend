@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,9 +18,24 @@ public class TaskController {
         return taskService.getTasks();
     }
 
+    @GetMapping("{id}")
+    public Optional<Task> getTaskById(@PathVariable String id) {
+        return taskService.getTaskById(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Task addTask(@RequestBody TaskDTO task) {
         return taskService.addTask(task);
+    }
+
+    @PutMapping("{id}")
+    public Task updateTask(@PathVariable String id, @RequestBody Task task) {
+        return taskService.updateTask(id, task);
+    }
+
+    @DeleteMapping("{id}")
+    public Task deleteTask(@PathVariable String id) {
+        return taskService.deleteTask(id);
     }
 }
