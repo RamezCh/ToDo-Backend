@@ -2,7 +2,6 @@ package com.github.ramezch.todobackend.task;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,9 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task deleteTask(String id) {
-        Task toBeDeleted = getTaskById(id).orElseThrow(() -> new TaskNotFoundException("Task with ID: "+ id +" not found"));
+    public void deleteTask(String id) {
+        getTaskById(id).orElseThrow(() -> new TaskNotFoundException("Task with ID: "+ id +" not found"));
         taskRepository.deleteById(id);
-        return toBeDeleted;
     }
 
 }
