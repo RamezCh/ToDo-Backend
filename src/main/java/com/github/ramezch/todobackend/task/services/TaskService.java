@@ -2,7 +2,6 @@ package com.github.ramezch.todobackend.task.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.ramezch.todobackend.gpt.models.GPTAnswer;
-import com.github.ramezch.todobackend.task.exceptions.TaskNotFoundException;
 import com.github.ramezch.todobackend.gpt.services.OpenAIService;
 import com.github.ramezch.todobackend.task.models.TaskDTO;
 import com.github.ramezch.todobackend.task.repositories.TaskRepository;
@@ -11,6 +10,7 @@ import com.github.ramezch.todobackend.task.utils.IdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -44,12 +44,12 @@ public class TaskService {
     }
 
     public Task updateTask(String id, Task task) {
-        getTaskById(id).orElseThrow(() -> new TaskNotFoundException("Task with ID: "+ id +" not found"));
+        getTaskById(id).orElseThrow(() -> new NoSuchElementException("Task with ID: "+ id +" not found"));
         return taskRepository.save(task);
     }
 
     public void deleteTask(String id) {
-        getTaskById(id).orElseThrow(() -> new TaskNotFoundException("Task with ID: "+ id +" not found"));
+        getTaskById(id).orElseThrow(() -> new NoSuchElementException("Task with ID: "+ id +" not found"));
         taskRepository.deleteById(id);
     }
 
