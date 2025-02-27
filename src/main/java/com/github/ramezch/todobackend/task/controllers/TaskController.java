@@ -1,5 +1,9 @@
-package com.github.ramezch.todobackend.task;
+package com.github.ramezch.todobackend.task.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.ramezch.todobackend.task.models.TaskDTO;
+import com.github.ramezch.todobackend.task.services.TaskService;
+import com.github.ramezch.todobackend.task.models.Task;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +29,7 @@ public class TaskController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task addTask(@RequestBody TaskDTO task) {
+    public Task addTask(@RequestBody TaskDTO task) throws JsonProcessingException {
         return taskService.addTask(task);
     }
 

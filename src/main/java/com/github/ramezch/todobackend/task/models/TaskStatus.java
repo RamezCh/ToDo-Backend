@@ -1,4 +1,4 @@
-package com.github.ramezch.todobackend.task;
+package com.github.ramezch.todobackend.task.models;
 
 public enum TaskStatus {
     OPEN,

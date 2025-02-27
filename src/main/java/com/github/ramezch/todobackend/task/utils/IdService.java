@@ -1,4 +1,4 @@
-package com.github.ramezch.todobackend.task;
+package com.github.ramezch.todobackend.task.utils;
 
 import org.springframework.stereotype.Component;
 
