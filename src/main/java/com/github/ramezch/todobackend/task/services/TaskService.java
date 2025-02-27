@@ -43,9 +43,17 @@ public class TaskService {
         return taskRepository.save(newTask);
     }
 
-    public Task updateTask(String id, Task task) {
+    public Task updateTask(String id, Task task) throws JsonProcessingException {
         getTaskById(id).orElseThrow(() -> new NoSuchElementException("Task with ID: "+ id +" not found"));
-        return taskRepository.save(task);
+        GPTAnswer ai = aiService.checkSpelling(task.description());
+        Task newTask;
+        if(ai.isCorrect()) {
+            newTask = new Task(task.id(), task.description(), task.status());
+        }
+        else {
+            newTask = new Task(task.id(), ai.correctedVersion(), task.status());
+        }
+        return taskRepository.save(newTask);
     }
 
     public void deleteTask(String id) {

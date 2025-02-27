@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorMessage TaskNotFoundException(NoSuchElementException exception) {
         return new ErrorMessage(exception.getMessage(), LocalDateTime.now());
     }

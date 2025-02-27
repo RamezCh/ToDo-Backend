@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -23,8 +24,11 @@ public class TaskController {
     }
 
     @GetMapping("{id}")
-    public Optional<Task> getTaskById(@PathVariable String id) {
-        return taskService.getTaskById(id);
+    public Task getTaskById(@PathVariable String id) {
+        Optional<Task> task = taskService.getTaskById(id);
+        if(task.isPresent())
+            return task.get();
+        throw new NoSuchElementException("Task with ID: "+ id +" not found");
     }
 
     @PostMapping
@@ -34,7 +38,7 @@ public class TaskController {
     }
 
     @PutMapping("{id}")
-    public Task updateTask(@PathVariable String id, @RequestBody Task task) {
+    public Task updateTask(@PathVariable String id, @RequestBody Task task) throws JsonProcessingException {
         return taskService.updateTask(id, task);
     }
 
